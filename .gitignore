@@ -5,4 +5,10 @@ build
 .west
 deps
 project_layout.txt
+
 .cache
+.ccache
+/.cache/
+/.ccache/
+**/.cache/
+**/.ccache/
