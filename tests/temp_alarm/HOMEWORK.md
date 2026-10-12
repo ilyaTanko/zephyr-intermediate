@@ -201,13 +201,45 @@ After every Task 2 test passes, tag the commit `l8-task2`.
 
 ## Task 3 — Coverage Analysis  `git tag l8-task3`
 
+### Linux (`native_sim`) reference
+
 ```bash
-# native_sim is built with the host GCC, so --gcov-tool gcov selects the matching host gcov
+# native_sim is built with the host GCC, so --gcov-tool gcov selects the matching host gcov.
 west twister -T tests/temp_alarm -p native_sim \
     -O app/build/twister-out/temp_alarm \
     --coverage --coverage-tool gcovr --gcov-tool gcov \
     --coverage-basedir app/modules/temp_alarm
 ```
+
+### Windows UCRT64/Git Bash (`qemu_x86`)
+
+```bash
+# UCRT64/Git Bash on Windows.
+# The temporary drive keeps the QEMU object paths short enough for gcovr
+# while still storing everything physically under app/build.
+PROJECT_ROOT_WIN="$(cygpath -w "$PWD")"
+ZEPHYR_BASE_WIN="$(cygpath -w "$ZEPHYR_BASE")"
+SDK_BIN="$(cygpath -u "$ZEPHYR_SDK_INSTALL_DIR")/gnu/x86_64-zephyr-elf/bin"
+
+(
+    subst Z: "$PROJECT_ROOT_WIN" || exit 1
+    trap 'cd /; subst Z: /D >/dev/null' EXIT
+    cd /z || exit 1
+
+    PATH="$SDK_BIN:$PATH" west -z "$ZEPHYR_BASE_WIN" twister \
+        -T tests/temp_alarm -p qemu_x86 \
+        -O app/build/twister-out/temp_alarm --short-build-path \
+        -s homework.unit.temp_alarm.ordered \
+        -x EXTRA_CFLAGS=-fprofile-filter-files=temp_alarm.c \
+        --coverage --coverage-tool gcovr \
+        --gcov-tool x86_64-zephyr-elf-gcov.exe \
+        --coverage-basedir app
+)
+```
+
+The `EXTRA_CFLAGS` filter instruments only `temp_alarm.c`.
+Without it, QEMU has to print coverage for the Zephyr kernel and drivers as well,
+and Twister's Windows QEMU handler can stop before the console dump is complete.
 
 1. Run the command above at the `l8-task1` commit (`git checkout l8-task1`).
 2. Open `app/build/twister-out/temp_alarm/coverage/index.html` in a browser and click into
