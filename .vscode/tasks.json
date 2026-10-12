@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "nrf-connect-process",
+            "label": "Twister: calculator_nvs (QEMU)",
+            "command": "west",
+            "args": [
+                "twister",
+                "-T",
+                "tests/calculator_nvs",
+                "-p",
+                "qemu_x86",
+                "-O",
+                "app/build/twister-out/calculator_nvs",
+                "--short-build-path",
+                "-v",
+                "--report-filtered"
+            ],
+            "cwd": "${workspaceFolder}",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "type": "nrf-connect-process",
+            "label": "Twister: temp_alarm (QEMU)",
+            "command": "west",
+            "args": [
+                "twister",
+                "-T",
+                "tests/temp_alarm",
+                "-p",
+                "qemu_x86",
+                "-O",
+                "app/build/twister-out/temp_alarm",
+                "--short-build-path",
+                "-v",
+                "--report-filtered"
+            ],
+            "cwd": "${workspaceFolder}",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ]
+}

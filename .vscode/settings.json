@@ -1,5 +1,11 @@
 {
     "nrf-connect.applications": [
-        "${workspaceFolder}\\app"
-    ]
+        "${workspaceFolder}/app"
+    ],
+    "C_Cpp.default.compileCommands": [
+        "${workspaceFolder}/app/build/app/compile_commands.json",
+        "${workspaceFolder}/app/build/twister-out/temp_alarm/qemu_x86_atom/zephyr_gnu/Projects/VSCode/zephyr-intermediate/tests/temp_alarm/homework.unit.temp_alarm.ordered/compile_commands.json",
+        "${workspaceFolder}/app/build/twister-out/calculator_nvs/qemu_x86_atom/zephyr_gnu/Projects/VSCode/zephyr-intermediate/tests/calculator_nvs/example.unit.calculator_nvs.ordered/compile_commands.json"
+    ],
+    "cmake.sourceDirectory": "D:/Programming/Embedded/Projects/VSCode/zephyr-intermediate/app"
 }

@@ -1,0 +1,25 @@
+common:
+  tags:
+    - unit
+    - calculator_nvs
+    - fff
+    - ztest
+
+tests:
+  # Default scenario: shuffled test order exposes hidden ordering dependencies
+  example.unit.calculator_nvs:
+    platform_allow:
+      - native_sim
+      - qemu_x86
+    timeout: 120
+    extra_args:
+      - CONFIG_ZTEST_SHUFFLE_SUITE_REPEAT_COUNT=1
+      - CONFIG_ZTEST_SHUFFLE_TEST_REPEAT_COUNT=1
+
+  # Deterministic scenario: fixed order for live demos or failure bisection.
+  example.unit.calculator_nvs.ordered:
+    platform_allow:
+      - native_sim
+      - qemu_x86
+    timeout: 120
+    extra_args: CONFIG_ZTEST_SHUFFLE=n

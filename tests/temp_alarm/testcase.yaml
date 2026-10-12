@@ -1,0 +1,25 @@
+common:
+  tags:
+    - unit
+    - temp_alarm
+    - fff
+    - homework
+
+tests:
+  # Shuffled order (default) exposes hidden ordering dependencies
+  homework.unit.temp_alarm:
+    platform_allow:
+      - native_sim
+      - qemu_x86
+    timeout: 120
+    extra_args:
+      - CONFIG_ZTEST_SHUFFLE_SUITE_REPEAT_COUNT=1
+      - CONFIG_ZTEST_SHUFFLE_TEST_REPEAT_COUNT=1
+
+  # Fixed order, for reproducing a failure
+  homework.unit.temp_alarm.ordered:
+    platform_allow:
+      - native_sim
+      - qemu_x86
+    timeout: 120
+    extra_args: CONFIG_ZTEST_SHUFFLE=n
