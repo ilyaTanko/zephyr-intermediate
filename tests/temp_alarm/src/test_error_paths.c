@@ -1,9 +1,8 @@
 /*
  * temp_alarm - Error-path unit tests (homework skeleton)
  *
- * Task 2: fill in the stubs according to TEST_SPEC.md. Each stub calls
- * ztest_test_skip(), so the binary builds and runs cleanly until the test is
- * implemented.
+ * Task 2: fill in the stubs according to TEST_SPEC.md.
+ * Each stub calls ztest_test_skip(), so the binary builds and runs cleanly until the test is implemented.
  *
  * Run:
  *   west twister -T tests/temp_alarm -p qemu_x86 -O app/build/twister-out/temp_alarm --short-build-path
@@ -19,15 +18,13 @@
 #define DEFAULT_THRESHOLD 30
 
 /* Same before() hook as in test_basic.c: a clean fake and an initialised module. */
-static void before(void *fixture)
-{
+static void before(void *fixture) {
 	ARG_UNUSED(fixture);
 
 	sensor_fake_reset();
 	sensor_fake_init();
 
-	zassume_ok(temp_alarm_init(&fake_sensor_dev, DEFAULT_THRESHOLD),
-		   "precondition: temp_alarm_init must succeed");
+	zassume_ok(temp_alarm_init(&fake_sensor_dev, DEFAULT_THRESHOLD), "precondition: temp_alarm_init must succeed");
 }
 
 /*

@@ -12,3 +12,5 @@ project_layout.txt
 /.ccache/
 **/.cache/
 **/.ccache/
+
+build_info.yml*
